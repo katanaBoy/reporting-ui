@@ -47,7 +47,13 @@ const ArtifactService = function ArtifactService($window, $q, UtilService, tools
                 var wsName = 'logs';
                 var testLogsStomp = Stomp.over(new SockJS(rabbitmq.ws));
                 testLogsStomp.debug = null;
-                testLogsStomp.ws.close = function() {};
+                //testLogsStomp.ws.close = function() {};
+                testLogsStomp.nativeTransmit = testLogsStomp._transmit;
+                testLogsStomp._transmit = function(t,e,i) {
+                    if (t !== 'DISCONNECT') {
+                        return testLogsStomp.nativeTransmit(t,e,i);
+                    }
+                };
                 testLogsStomp.connect(rabbitmq.user, rabbitmq.pass, function () {
 
                     UtilService.websocketConnected(wsName);

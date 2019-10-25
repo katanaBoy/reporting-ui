@@ -532,7 +532,13 @@ const testRunInfoController = function testRunInfoController($scope, $rootScope,
     function initTestsWebSocket(testRun) {
         $scope.testsWebsocket = Stomp.over(new SockJS(API_URL + "/api/websockets"));
         $scope.testsWebsocket.debug = null;
-        $scope.testsWebsocket.ws.close = function() {};
+        //$scope.testsWebsocket.ws.close = function() {};
+        $scope.testsWebsocket.nativeTransmit = $scope.testsWebsocket._transmit;
+        $scope.testsWebsocket._transmit = function(t,e,i) {
+            if (t !== 'DISCONNECT') {
+                return $scope.testsWebsocket.nativeTransmit(t,e,i);
+            }
+        };
         $scope.testsWebsocket.connect({ withCredentials: false }, function () {
             if ($scope.testsWebsocket.connected) {
                 vm.wsSubscription = $scope.testsWebsocket.subscribe("/topic/" + TENANT + ".testRuns." + testRun.id + ".tests", function (data) {

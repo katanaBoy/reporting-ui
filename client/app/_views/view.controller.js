@@ -27,7 +27,13 @@
             var sockJS = new SockJS(API_URL + "/websockets");
             $scope.statisticsStomp = Stomp.over(sockJS);
             $scope.statisticsStomp.debug = null;
-            $scope.statisticsStomp.ws.close = function() {};
+            //$scope.statisticsStomp.ws.close = function() {};
+            $scope.statisticsStomp.nativeTransmit = $scope.statisticsStomp._transmit;
+            $scope.statisticsStomp._transmit = function(t,e,i) {
+                if (t !== 'DISCONNECT') {
+                    return $scope.statisticsStomp.nativeTransmit(t,e,i);
+                }
+            };
             $scope.statisticsStomp.connect({withCredentials: false}, function () {
                 $scope.statisticsStomp.subscribe("/topic/tests", function (data) {
                     $scope.getMessage(data.body);

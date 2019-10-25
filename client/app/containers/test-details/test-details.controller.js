@@ -907,7 +907,13 @@ const testDetailsController = function testDetailsController(
 
         vm.zafiraWebsocket = Stomp.over(new SockJS(API_URL + '/api/websockets'));
         vm.zafiraWebsocket.debug = null;
-        vm.zafiraWebsocket.ws.close = function () { };
+        //vm.zafiraWebsocket.ws.close = function () { };
+        vm.zafiraWebsocket.nativeTransmit = vm.zafiraWebsocket._transmit;
+        vm.zafiraWebsocket._transmit = function(t,e,i) {
+            if (t !== 'DISCONNECT') {
+                return vm.zafiraWebsocket.nativeTransmit(t,e,i);
+            }
+        };
         vm.zafiraWebsocket.connect({ withCredentials: false }, function () {
             vm.subscriptions.statistics = subscribeStatisticsTopic();
             vm.subscriptions.testRun = subscribeTestRunsTopic();
