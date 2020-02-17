@@ -1,0 +1,36 @@
+@import "../../../styles/global/var";
+
+.versions-container {
+    position: absolute;
+    width: calc(100vw - 100px);
+    bottom: -20px;
+    left: 20px;
+    overflow: hidden;
+    opacity: 0.2;
+    transition: opacity 0.25s ease;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    @media screen and (max-width: $breakpoint-mobile-small) {
+        width: 100vw;
+        left: 5px;
+    }
+    
+    .version-item {
+        margin-left: 5px;
+        flex-shrink: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    .item-client-v {
+        flex-shrink: 1;
+    }
+}

@@ -41,6 +41,7 @@
         </zf-sub-header-button>
     </zf-sub-header>
     <div id="dashboard_content" class="page page-dashboard">
+        <app-versions></app-versions>
         <empty-page-component ng-if="!dashboard.widgets.length && !isPageLoading" content="emptyContent"></empty-page-component>
 		<div class="dashboard__widgets-wrapper" ng-if="dashboard.widgets.length">
 			<input type="hidden" id="dashboard_title" value="{{dashboard.title}}" />
@@ -152,5 +153,5 @@
                 </div>
             </div>
         </div>
-	</div>
+    </div>
 </div>

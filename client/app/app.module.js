@@ -6,6 +6,7 @@ import progressbarInterceptor from './http-interceptors/progressbar.interceptor'
 import jenkinsIcon from '../assets/images/_icons_tools/jenkins.svg';
 import { TutorialsModule } from './modules/tutorials';
 import sessionSwitcherComponent from './shared/sessions-switcher/sessions-switcher.component';
+import appVersionsComponent from './shared/app-versions/app-versions.component';
 
 const isProd = __PRODUCTION__; // __PRODUCTION__ variable will be replaced by webpack
 const ngModule = angular.module('app', [
@@ -31,6 +32,7 @@ const ngModule = angular.module('app', [
     TutorialsModule,
 ])
 .component('sessionsSwitcher', sessionSwitcherComponent)
+.component('appVersions', appVersionsComponent)
 .config((TutorialsProvider) => {
     'ngInject';
 
