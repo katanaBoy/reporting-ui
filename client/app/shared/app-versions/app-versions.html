@@ -1,5 +1,7 @@
 <div class="versions-container" layout="row">
-    <span class="version-item item-ui-v" ng-if="$ctrl.uiVersion">ui v.{{$ctrl.uiVersion}}</span>
-    <span class="version-item item-server-v" ng-if="$ctrl.serverVersion">| server v.{{$ctrl.serverVersion}}</span>
-    <span class="version-item item-client-v" ng-if="$ctrl.clientVersion">| client v.{{$ctrl.clientVersion}}</span>
+    <span class="version-item item-ui-v" ng-if="$ctrl.versions.ui">ui v.{{$ctrl.versions.ui}}</span>
+    <span class="version-item__divider" ng-if="$ctrl.versions.ui && $ctrl.versions.service">|</span>
+    <span class="version-item item-server-v" ng-if="$ctrl.versions.service">server v.{{$ctrl.versions.service}}</span>
+    <span class="version-item__divider" ng-if="$ctrl.versions.client">|</span>
+    <span class="version-item item-client-v" ng-if="$ctrl.versions.client">client v.{{$ctrl.versions.client}}</span>
 </div>
